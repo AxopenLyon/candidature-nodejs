@@ -3,7 +3,8 @@ const {
     findChantier,
     putRandomChantier,
     updateChantier,
-    deleteChantier
+    deleteChantier,
+    findAllChantier
 } = require("../helpers/chantier");
 
 const route = require('express').Router();
@@ -19,6 +20,18 @@ route.get('/:numero', async function (req, res) {
         return res.json(chantier);
     } catch (e) {
         return res.status(500).json({key: getCustomResMessage('Error on finding chantier', e)})
+    }
+});
+
+/**
+ * Get all chantier in database
+ * @returns {Chantier[]} the new chantier
+ */
+route.get('/', async function (req, res) {
+    try {
+        return res.json(await findAllChantier());
+    } catch (e) {
+        return res.status(500).json({key: getCustomResMessage('Error on updating random chantier', e)})
     }
 });
 

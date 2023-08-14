@@ -11,6 +11,15 @@ async function findChantier(id, params) {
     }
 }
 
+async function findAllChantier() {
+    try {
+        return await query('SELECT * FROM chantier');
+    } catch(e){
+        throw e;
+    }
+}
+
+
 async function putRandomChantier() {
     try {
         const description = getRandomString(12);
@@ -53,4 +62,4 @@ async function deleteChantier(numero) {
     }
 }
 
-module.exports = {findChantier, putRandomChantier, updateChantier, deleteChantier};
+module.exports = {findChantier, findAllChantier, putRandomChantier, updateChantier, deleteChantier};
