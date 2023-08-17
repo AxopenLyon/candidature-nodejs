@@ -14,5 +14,12 @@ function createUser(user) {
     })
 }
 
+function findUserById(userId) {
+    return new Promise(async (resolve) => {
+        const users = await query("SELECT * FROM user WHERE id = ?", [userId]);
+        resolve(users[0]);
+    })
+}
 
-module.exports = {findIncludeUser, createUser};
+
+module.exports = {findIncludeUser, createUser, findUserById};

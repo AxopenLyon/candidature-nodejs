@@ -6,6 +6,7 @@ const {
     deleteChantier,
     findAllChantier
 } = require("../helpers/chantier");
+const {findUserById} = require("../helpers/user");
 
 const route = require('express').Router();
 
@@ -29,6 +30,19 @@ route.get('/:numero', async function (req, res) {
  */
 route.get('/', async function (req, res) {
     try {
+        const chantiers = await findAllChantier();
+
+        console.log('chantiers', chantiers)
+
+        for(let i = 0; i < chantiers.length; i++) {
+            chantiers[i].chef_chantier = await findUserById(chantiers[i].chef_chantier_id);
+            chantiers[i].responsable_chantier = await findUserById(chantiers[i].responsable_chantier_id);
+            console.log('chantiers[i].chef_chantier', chantiers[i].chef_chantier)
+            console.log('chantiers[i].responsable_chantier', chantiers[i].responsable_chantier)
+        }
+
+
+
         return res.json(await findAllChantier());
     } catch (e) {
         return res.status(500).json({key: getCustomResMessage('Error on updating random chantier', e)})
